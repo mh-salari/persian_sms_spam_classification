@@ -1,4 +1,8 @@
 search_twitter/database/
+computer_vision_twitter_media/dataset
+computer_vision_twitter_media/outputs
+fastai_labels.json
+
 
 
 # Byte-compiled / optimized / DLL files
