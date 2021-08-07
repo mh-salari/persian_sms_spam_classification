@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+    {% include "alert.html" %}
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="{% static image%}" class="img-fluid">
+        </div>
+        <div class="col-sm-6">
+            <section class="row justify-content-center">
+                <div class="form-group ">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input class='btn btn-secondary' type="submit" name="add" value="Add" {% if disable %} disabled
+                            {%endif%}>
+                        <input class='btn btn-secondary' type="submit" name="skip" value="Skip" {% if disable %}
+                            disabled {%endif %}>
+                </div>
+            </section>
+            {% include "replace.html" %}
+        </div>
+    </div>
+</div>
+
+
+<!-- <h1 class="mt-4"> Add new SMS text</h1> -->
+
+
+
+
+{% endblock content %}
