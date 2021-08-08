@@ -19,7 +19,7 @@
     <tbody>
         {% for sms in page_obj %}
         <tr>
-            <th scope="row">{{ forloop.counter|add:page_obj.start_index }}</th>
+            <th scope="row">{{ forloop.counter0|add:page_obj.start_index }}</th>
             <td dir="rtl">{{ sms.text }}</td>
             <td>{{ sms.label }}</td>
         </tr>
@@ -34,8 +34,16 @@
 <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
         {% if page_obj.has_previous %}
+
         <li class="page-item">
             <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="?page=1" tabindex="-1">First</a>
+        </li>
+        <li class="page-item disabled ">
+            <a class="page-link" href="#" tabindex="-1">...</a>
         </li>
         {% else %}
 
@@ -59,25 +67,27 @@
                 {{ num }}
             </a>
             </li>
-
-
-            <!-- <a class="pagination-number"
-                href="?page={{ num }}">{{ num }}</a> -->
             {% endif %}
             {% endfor %}
-
-
-
-
             {% if page_obj.has_next %}
+            <li class="page-item disabled ">
+                <a class="page-link" href="#" tabindex="-1">...</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages  }}" tabindex="-1">Last</a>
+            </li>
+
             <li class="page-item">
                 <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="-1">Next</a>
             </li>
+
             {% else %}
 
             <li class="page-item disabled ">
                 <a class="page-link" href="#" tabindex="-1">Next</a>
             </li>
+
             {% endif %}
 
     </ul>
