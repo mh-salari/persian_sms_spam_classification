@@ -92,7 +92,7 @@ def fix_theme(image):
 
 
 def home_page(request):
-    SMS_list = SMS.objects.all()
+    SMS_list = SMS.objects.all().order_by("id")
     paginator = Paginator(SMS_list, 24)
 
     page_number = request.GET.get("page")
