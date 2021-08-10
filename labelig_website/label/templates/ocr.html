@@ -4,13 +4,15 @@
 
 
 <div class="container">
-    {% include "alert.html" %}
+
     <div class="row">
         <div class="col-sm-6">
             <img src="{% static image%}" class="img-fluid">
+            <p>Images remaining: {{total}}</p>
         </div>
         <div class="col-sm-6">
             <section class="row justify-content-center">
+                {% include "alert.html" %}
                 <div class="form-group ">
                     <form action="" method="POST">
                         {% csrf_token %}
@@ -25,11 +27,5 @@
         </div>
     </div>
 </div>
-
-
-<!-- <h1 class="mt-4"> Add new SMS text</h1> -->
-
-
-
 
 {% endblock content %}

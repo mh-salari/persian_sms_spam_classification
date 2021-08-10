@@ -126,6 +126,7 @@ def ocr_page(request):
         "/home/hue/Codes/persian_sms_spam_classification/search_twitter/database/media"
     )
     ocr = OCR.objects.all().filter(is_added=False).first()
+
     if ocr:
         image_name = ocr.name
         image = fix_theme(cv2.imread(os.path.join(images_path, image_name)))
@@ -157,7 +158,6 @@ def ocr_page(request):
                 messages.warning(request, "UNIQUE constraint failed")
             else:
                 messages.success(request, "SMS added successfully")
-            messages.success(request, "SMS added successfully")
         return HttpResponseRedirect("")
 
     return render(
@@ -168,5 +168,6 @@ def ocr_page(request):
             "form": form,
             "disable": disable,
             "image": image_name,
+            "total": len(OCR.objects.all().filter(is_added=False)),
         },
     )
