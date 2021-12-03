@@ -10,6 +10,7 @@ import pytesseract
 import os
 import re
 import emoji
+from django.contrib.auth.decorators import login_required
 
 
 def parser(text):
@@ -91,15 +92,24 @@ def fix_theme(image):
         return 1 - image  # dark
 
 
+@login_required
 def home_page(request):
-    SMS_list = SMS.objects.all().order_by("id")
-    paginator = Paginator(SMS_list, 24)
+    if request.user.username != "hue":
+        messages.error(request, "Cannot access Home page")
+        return redirect("add/")
+    else:
 
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    return render(request, "home.html", {"page_obj": page_obj, "total": len(SMS_list)})
+        SMS_list = SMS.objects.all().order_by("id")
+        paginator = Paginator(SMS_list, 24)
+
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        return render(
+            request, "home.html", {"page_obj": page_obj, "total": len(SMS_list)}
+        )
 
 
+@login_required
 def add_page(request):
 
     form = AddSMSForm()
@@ -119,6 +129,7 @@ def add_page(request):
     return render(request, "add.html", {"method": request.method, "form": form})
 
 
+@login_required
 def ocr_page(request):
     disable = False
     image_name = ""

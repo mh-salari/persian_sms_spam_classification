@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<h1 class="mt-4"> Log In </h1>
+<section class="row justify-content-center">
+    <section class="col-10 col-md-8 col-lg-6">
+        {% include "alert.html" %}
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Log In</button>
+</form>
+
+    </section>
+
+</section>
+
+
+
+{% endblock content %}
