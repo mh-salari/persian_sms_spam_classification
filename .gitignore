@@ -1,3 +1,4 @@
+*.sqlite3
 download_sms_images_from_twitter/database/
 *.log
 config.py
