@@ -1,0 +1,20 @@
+# sudo nano /lib/systemd/system/farsi_sms_spam_bot.service
+
+[Unit]
+Description=farsi_sms_spam_bot
+After=multi-user.target
+Conflicts=getty@tty1.service
+[Service]
+Type=simple
+ExecStart=/root/miniconda3/bin/python /root/codes/farsi_sms_spam/telegram_bot/app.py
+StandardInput=tty-force
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=1s
+[Install]
+WantedBy=multi-user.target
+
+# sudo systemctl daemon-reload
+# sudo systemctl enable farsi_sms_spam_bot.service
+# sudo systemctl start farsi_sms_spam_bot.service
+# sudo systemctl restart farsi_sms_spam_bot.service
