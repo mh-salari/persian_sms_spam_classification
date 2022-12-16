@@ -1,0 +1,97 @@
+{% extends "main.html" %}
+{% load static %}
+{% block content %}
+{% if messages%}
+{% for message in messages %}
+<div class="alert {{ message.tags }} " role="alert">{{ message | safe }}</div>
+{% endfor %}
+{% endif %}
+<h4 class="mt-4"> Total number of saved messages: {{total}} </h4>
+{% if page_obj %}
+<table class="table table-striped table-responsive table-body mt-4">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">SMS Text</th>
+            <th scope="col">Class</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sms in page_obj %}
+        <tr>
+            <th scope="row">{{ forloop.counter0|add:page_obj.start_index }}</th>
+            <td dir="rtl">{{ sms.text }}</td>
+            <td>{{ sms.label }}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if page_obj.paginator.num_pages > 1 %}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="?page=1" tabindex="-1">First</a>
+        </li>
+        <li class="page-item disabled ">
+            <a class="page-link" href="#" tabindex="-1">...</a>
+        </li>
+        {% else %}
+
+        <li class="page-item disabled ">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        {% endif %}
+
+
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item active">
+            <a class="page-link" href="?page={{ num }}">
+                {{ num }}
+            </a>
+        </li>
+
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
+            <a class="page-link" href="?page={{ num }}">
+                {{ num }}
+            </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item disabled ">
+                <a class="page-link" href="#" tabindex="-1">...</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages  }}" tabindex="-1">Last</a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="-1">Next</a>
+            </li>
+
+            {% else %}
+
+            <li class="page-item disabled ">
+                <a class="page-link" href="#" tabindex="-1">Next</a>
+            </li>
+
+            {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
+
+{% endblock %}
