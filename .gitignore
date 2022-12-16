@@ -1,3 +1,5 @@
+twitter_images_classification/dataset/
+twitter_images_classification/outputs/
 *.sqlite3
 download_sms_images_from_twitter/database/
 *.log
